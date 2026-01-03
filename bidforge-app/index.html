@@ -1,0 +1,766 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>BidForge by PMIC LLC — Luxury Bid Intelligence & Submission</title>
+  <meta name="description" content="BidForge by PMIC LLC — premium bid discovery, compliance packaging, and submission support built to win."/>
+  <style>
+    :root{
+      --bg0:#07070A;
+      --bg1:#0B0B11;
+      --card: rgba(255,255,255,.06);
+      --card2: rgba(255,255,255,.08);
+      --line: rgba(255,255,255,.12);
+      --text:#F7F4ED;
+      --muted: rgba(247,244,237,.72);
+      --muted2: rgba(247,244,237,.55);
+
+      --gold:#C8A96A;         /* champagne */
+      --gold2:#E6D3A6;        /* soft gold */
+      --goldLine: rgba(200,169,106,.35);
+
+      --shadow: 0 20px 70px rgba(0,0,0,.55);
+      --shadow2: 0 10px 25px rgba(0,0,0,.38);
+
+      --r12: 12px;
+      --r16: 16px;
+      --r22: 22px;
+
+      --max: 1160px;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      color:var(--text);
+      background:
+        radial-gradient(1200px 600px at 15% 10%, rgba(200,169,106,.18), transparent 55%),
+        radial-gradient(900px 500px at 85% 20%, rgba(230,211,166,.14), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 55%, var(--bg0));
+      overflow-x:hidden;
+    }
+
+    a{color:inherit;text-decoration:none}
+    .container{max-width:var(--max); margin:0 auto; padding:0 18px}
+    .row{display:flex; gap:16px}
+    .grid{display:grid; gap:16px}
+
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:10px;
+      padding:12px 18px;
+      border-radius:14px;
+      font-weight:800;
+      letter-spacing:.02em;
+      border:1px solid transparent;
+      transition:transform .15s ease, filter .15s ease, background .15s ease, border-color .15s ease;
+      user-select:none;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .btn:active{transform:translateY(1px)}
+    .btn.primary{background:var(--gold); color:#0A0A0E; box-shadow: var(--shadow2)}
+    .btn.primary:hover{filter:brightness(1.08)}
+    .btn.ghost{background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.12)}
+    .btn.ghost:hover{background:rgba(255,255,255,.10)}
+
+    .badge{
+      display:inline-flex; align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      font-size:12px;
+      letter-spacing:.22em;
+      text-transform:uppercase;
+      color:rgba(200,169,106,.95);
+      background:rgba(200,169,106,.12);
+      border:1px solid rgba(200,169,106,.25);
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--r22);
+      box-shadow:var(--shadow2);
+      backdrop-filter: blur(10px);
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .card:hover{
+      transform: translateY(-2px);
+      border-color: rgba(200,169,106,.28);
+      background: rgba(255,255,255,.08);
+    }
+    .card.pad{padding:18px}
+    .card.pad-lg{padding:22px}
+    .hr{height:1px;background:rgba(255,255,255,.10); margin:18px 0}
+
+    .muted{color:var(--muted)}
+    .muted2{color:var(--muted2)}
+    .gold{color:var(--gold)}
+
+    .h1{font-size: clamp(36px, 4.8vw, 62px); line-height:1.02; margin:14px 0 10px; font-weight:950; text-wrap:balance}
+    .h2{font-size: clamp(26px, 3.2vw, 38px); line-height:1.1; margin:0 0 10px; font-weight:900; text-wrap:balance}
+    .h3{font-size:18px; margin:0 0 6px; font-weight:850}
+    .p{margin:0; line-height:1.65; text-wrap:pretty}
+
+    .kicker{
+      font-size:12px;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      color: rgba(230,211,166,.92);
+    }
+
+    .gold-shimmer{
+      background: linear-gradient(90deg, #E6D3A6 0%, #C8A96A 45%, #F7F4ED 60%, #C8A96A 80%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .nav{
+      position:sticky; top:0; z-index:50;
+      border-bottom:1px solid rgba(255,255,255,.10);
+      background: rgba(11,11,17,.72);
+      backdrop-filter: blur(12px);
+    }
+    .nav-inner{
+      display:flex; align-items:center; justify-content:space-between;
+      padding:14px 0;
+      gap:14px;
+    }
+    .brand{
+      display:flex; align-items:center; gap:12px;
+      min-width: 260px;
+    }
+    .brand-mark{
+      height:42px; width:42px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      background: rgba(200,169,106,.12);
+      border:1px solid rgba(200,169,106,.25);
+      flex: 0 0 auto;
+    }
+    .brand-mark span{
+      font-weight:900;
+      letter-spacing:.14em;
+      color:var(--gold);
+      font-size:12px;
+    }
+    .brand-title{font-weight:900}
+    .brand-sub{font-size:12px; color:var(--muted2); margin-top:2px}
+
+    .nav-links{
+      display:flex; align-items:center; gap:8px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+    .nav-links a{
+      font-size:14px;
+      color: rgba(247,244,237,.80);
+      padding:8px 10px;
+      border-radius:12px;
+      transition:background .15s ease, color .15s ease;
+    }
+    .nav-links a:hover{background:rgba(255,255,255,.06); color:var(--text)}
+    .nav-cta{display:flex; gap:10px; align-items:center; flex-wrap:wrap; justify-content:flex-end}
+
+    .hero{
+      position:relative;
+      overflow:hidden;
+    }
+    .hero .glow1,.hero .glow2{
+      position:absolute; border-radius:999px; filter: blur(60px);
+      opacity:.60; pointer-events:none;
+    }
+    .hero .glow1{width:520px;height:520px; left:-170px; top:-140px; background:rgba(200,169,106,.22)}
+    .hero .glow2{width:640px;height:640px; right:-240px; bottom:-280px; background:rgba(230,211,166,.15)}
+
+    .hero-inner{
+      display:grid;
+      grid-template-columns: 1.35fr .85fr;
+      gap:16px;
+      padding:34px 0 18px;
+    }
+    @media (max-width: 980px){
+      .hero-inner{grid-template-columns:1fr; padding:22px 0 12px}
+      .nav-links{display:none}
+      .brand{min-width: unset}
+    }
+
+    .hero-panel{
+      padding:22px;
+      border-radius: var(--r22);
+      background:
+        radial-gradient(700px 260px at 20% 5%, rgba(200,169,106,.17), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.12);
+      box-shadow: var(--shadow);
+    }
+    .hero-actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .hero-pills{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .pill{
+      font-size:12px; color:rgba(247,244,237,.86);
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      padding:8px 10px;
+      border-radius:999px;
+    }
+
+    .stats{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-top:16px}
+    @media (max-width: 980px){ .stats{grid-template-columns:repeat(2,1fr)} }
+    .stat{
+      padding:14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+    }
+    .stat .v{font-weight:950; color:var(--gold); font-size:18px}
+    .stat .l{font-size:12px; color:var(--muted2); margin-top:4px}
+
+    .section{padding:26px 0}
+    .section.tight{padding:18px 0}
+    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap}
+    .section-head p{max-width:720px}
+
+    .searchbar{
+      margin-top:-18px;
+      padding:16px;
+      border-radius: var(--r22);
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      box-shadow: var(--shadow2);
+    }
+    .search-row{display:flex; gap:10px; flex-wrap:wrap}
+    .input{
+      flex:1;
+      min-width:220px;
+      padding:12px 14px;
+      border-radius:14px;
+      background: rgba(0,0,0,.25);
+      border:1px solid rgba(255,255,255,.12);
+      outline:none;
+      color:var(--text);
+    }
+    .input:focus{border-color: rgba(200,169,106,.45); box-shadow: 0 0 0 4px rgba(200,169,106,.12)}
+    .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
+    .chip{
+      font-size:12px;
+      padding:9px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.10);
+      color: rgba(247,244,237,.85);
+      cursor:pointer;
+      transition: background .15s ease, border-color .15s ease, transform .15s ease;
+    }
+    .chip:hover{background: rgba(255,255,255,.10); border-color: rgba(200,169,106,.22); transform: translateY(-1px)}
+
+    .cards-4{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+    .cards-3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    .cards-2{display:grid; grid-template-columns:repeat(2,1fr); gap:14px}
+    @media (max-width: 980px){
+      .cards-4,.cards-3{grid-template-columns:1fr}
+      .cards-2{grid-template-columns:1fr}
+    }
+
+    .feature{
+      padding:18px;
+      border-radius: var(--r22);
+      border:1px solid rgba(255,255,255,.10);
+      background: linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.05));
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .feature:hover{
+      transform: translateY(-2px);
+      border-color: rgba(200,169,106,.28);
+      background: rgba(255,255,255,.08);
+    }
+    .feature .top{display:flex; justify-content:space-between; gap:10px}
+    .tag{
+      font-size:12px;
+      color: rgba(230,211,166,.95);
+      background: rgba(230,211,166,.10);
+      border: 1px solid rgba(230,211,166,.22);
+      padding:6px 10px;
+      border-radius:999px;
+      white-space:nowrap;
+    }
+    .feature .meta{font-size:13px; color:var(--muted); margin-top:8px; line-height:1.55}
+
+    .strip{
+      border:1px solid rgba(200,169,106,.20);
+      background:
+        radial-gradient(900px 280px at 10% 20%, rgba(200,169,106,.20), transparent 60%),
+        linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.04));
+      border-radius: var(--r22);
+      padding:18px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+
+    .tier{
+      position:relative;
+      padding:20px;
+      border-radius: var(--r22);
+      background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.05));
+      border:1px solid rgba(255,255,255,.12);
+      overflow:hidden;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease;
+    }
+    .tier:hover{
+      transform: translateY(-2px);
+      border-color: rgba(200,169,106,.28);
+      background: rgba(255,255,255,.08);
+    }
+    .tier::before{
+      content:"";
+      position:absolute;
+      width:260px;height:260px;
+      right:-110px; top:-140px;
+      border-radius:999px;
+      background: rgba(200,169,106,.18);
+      filter: blur(40px);
+    }
+    .tier .name{display:flex; align-items:center; justify-content:space-between; gap:10px}
+    .price{font-size:28px; font-weight:950; margin-top:10px}
+    .list{margin:12px 0 0; padding:0; list-style:none; display:grid; gap:10px}
+    .list li{
+      display:flex; gap:10px; align-items:flex-start;
+      color: rgba(247,244,237,.82);
+      font-size:14px; line-height:1.55;
+    }
+    .dot{width:8px;height:8px;border-radius:999px;background:var(--gold); margin-top:8px; flex:0 0 auto}
+
+    .footer{
+      margin-top:26px;
+      border-top:1px solid rgba(255,255,255,.10);
+      padding:22px 0;
+      color: var(--muted2);
+      font-size:13px;
+    }
+    .footer .frow{display:flex; justify-content:space-between; gap:14px; flex-wrap:wrap}
+    .smallnote{font-size:12px;color:var(--muted2)}
+
+    /* Smooth anchor scroll */
+    html{scroll-behavior:smooth}
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <div class="nav">
+    <div class="container">
+      <div class="nav-inner">
+        <a class="brand" href="#top" aria-label="BidForge Home">
+          <div class="brand-mark"><span>BID</span></div>
+          <div>
+            <div class="brand-title">BidForge <span class="muted2">by</span> PMIC LLC</div>
+            <div class="brand-sub">Luxury Bid Intelligence & Submission Platform</div>
+          </div>
+        </a>
+
+        <div class="nav-links" aria-label="Primary">
+          <a href="#services">Services</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#about">About</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div class="nav-cta">
+          <a class="btn ghost" href="#pricing">View Tiers</a>
+          <a class="btn primary" href="#contact">Request Access</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div id="top" class="hero">
+    <div class="glow1"></div>
+    <div class="glow2"></div>
+
+    <div class="container">
+      <div class="hero-inner">
+
+        <div class="hero-panel">
+          <div class="badge">Elite • Compliance-First • Conversion-Built</div>
+
+          <div class="h1 gold-shimmer">BidForge</div>
+          <div class="kicker">BY PMIC LLC • BUILT FOR SERIOUS CONTRACTORS</div>
+
+          <p class="p muted" style="margin-top:14px; max-width:760px">
+            A luxury-clean system for <b>bid discovery</b>, <b>packaging</b>, and <b>submission-ready compliance</b>.
+            Built with high-energy conversion flow and a clean “builder-style” structure.
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn primary" href="#contact">Book a Call</a>
+            <a class="btn ghost" href="#pricing">See Pricing</a>
+            <a class="btn ghost" href="#services">What We Do</a>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <div class="v">24–48h</div>
+              <div class="l">Turnaround Targets</div>
+            </div>
+            <div class="stat">
+              <div class="v">Submission</div>
+              <div class="l">Ready Packaging</div>
+            </div>
+            <div class="stat">
+              <div class="v">Nationwide</div>
+              <div class="l">Licensing Roadmaps</div>
+            </div>
+            <div class="stat">
+              <div class="v">Premium</div>
+              <div class="l">Client Experience</div>
+            </div>
+          </div>
+
+          <div class="hero-pills">
+            <div class="pill">Federal + State + Local</div>
+            <div class="pill">Compliance checklists</div>
+            <div class="pill">Clean scope & pricing formats</div>
+            <div class="pill">High-intent lead handling</div>
+          </div>
+        </div>
+
+        <div class="card pad-lg">
+          <div class="kicker">THE DIFFERENCE</div>
+          <div class="h2" style="margin-top:10px">This isn’t “bid writing.”</div>
+          <p class="p muted" style="margin-top:8px">
+            This is a premium submission pipeline. We reduce friction, eliminate missing requirements,
+            and present you like an enterprise contractor — even if you’re lean.
+          </p>
+
+          <div class="hr"></div>
+
+          <div class="grid" style="gap:12px">
+            <div class="feature" style="border-radius:16px">
+              <div class="top">
+                <div class="h3">Opportunity Discovery</div>
+                <div class="tag">Pipeline</div>
+              </div>
+              <div class="meta">We find aligned bids, filter noise, and build a weekly target list.</div>
+            </div>
+            <div class="feature" style="border-radius:16px">
+              <div class="top">
+                <div class="h3">Compliance Packaging</div>
+                <div class="tag">Ready</div>
+              </div>
+              <div class="meta">Forms, attachments, exhibits, and requirements organized clean and fast.</div>
+            </div>
+            <div class="feature" style="border-radius:16px">
+              <div class="top">
+                <div class="h3">Execution Support</div>
+                <div class="tag">Win</div>
+              </div>
+              <div class="meta">Schedules, subs, quotes, and follow-up — built to win more often.</div>
+            </div>
+          </div>
+
+          <div class="hr"></div>
+
+          <div class="row" style="flex-wrap:wrap">
+            <a class="btn primary" href="#pricing">Choose Your Tier</a>
+            <a class="btn ghost" href="#contact">Talk to BidForge</a>
+          </div>
+
+          <div class="smallnote" style="margin-top:10px">
+            Phone: <b>435-559-7731</b> • Email: <b>pmicllc25@gmail.com</b>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH MODULE -->
+  <div class="container">
+    <div class="searchbar">
+      <div class="section-head">
+        <div>
+          <div class="kicker">FIND YOUR FIT</div>
+          <div class="h2" style="margin-top:8px">Search your scope</div>
+        </div>
+        <p class="p muted">This simulates a “project finder” experience. (We can wire real filtering later.)</p>
+      </div>
+
+      <div class="search-row" style="margin-top:14px">
+        <input id="site-search" class="input" placeholder="Search by scope, state, NAICS, agency, or budget range…"/>
+        <button id="search-btn" class="btn primary" type="button">Search</button>
+      </div>
+
+      <div class="chips">
+        <button class="chip" type="button" data-chip="Concrete">Concrete</button>
+        <button class="chip" type="button" data-chip="Framing">Framing</button>
+        <button class="chip" type="button" data-chip="Excavation">Excavation</button>
+        <button class="chip" type="button" data-chip="Facilities Maintenance">Facilities Maintenance</button>
+        <button class="chip" type="button" data-chip="Roadwork / Civil">Roadwork / Civil</button>
+        <button class="chip" type="button" data-chip="Federal Bids">Federal Bids</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div id="services" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">CAPABILITIES</div>
+          <div class="h2" style="margin-top:8px">Luxury clean. Government ready.</div>
+        </div>
+        <p class="p muted">We package you to look expensive, competent, and compliant — because that converts.</p>
+      </div>
+
+      <div class="cards-4" style="margin-top:14px">
+        <div class="feature">
+          <div class="top"><div class="h3">Bid Discovery</div><div class="tag">Weekly</div></div>
+          <div class="meta">Target lists, filters, and a clear pipeline you can execute.</div>
+        </div>
+        <div class="feature">
+          <div class="top"><div class="h3">Submission Packaging</div><div class="tag">Clean</div></div>
+          <div class="meta">All requirements organized with a professional, enterprise feel.</div>
+        </div>
+        <div class="feature">
+          <div class="top"><div class="h3">Licensing Roadmaps</div><div class="tag">Nationwide</div></div>
+          <div class="meta">State-by-state plan so you can bid and operate wider.</div>
+        </div>
+        <div class="feature">
+          <div class="top"><div class="h3">Pricing Strategy</div><div class="tag">Profit</div></div>
+          <div class="meta">Markups, risk buffers, and clean breakdowns that protect margin.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT / FEATURED -->
+  <div id="about" class="section tight">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">ABOUT</div>
+          <div class="h2" style="margin-top:8px">Built like a premium brand.</div>
+        </div>
+        <p class="p muted">Enterprise presentation without enterprise overhead.</p>
+      </div>
+
+      <div class="cards-3" style="margin-top:14px">
+        <div class="feature">
+          <div class="top"><div class="h3">Mission</div><div class="tag">Win More</div></div>
+          <div class="meta">Increase wins by improving completeness, compliance, and presentation — every time.</div>
+        </div>
+        <div class="feature">
+          <div class="top"><div class="h3">Standard</div><div class="tag">Luxury</div></div>
+          <div class="meta">No clutter, no cheap graphics — clean sections, trust signals, decisive flow.</div>
+        </div>
+        <div class="feature">
+          <div class="top"><div class="h3">Built For</div><div class="tag">Contractors</div></div>
+          <div class="meta">GCs and subs who want a repeatable pipeline and higher-value opportunities.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PRICING -->
+  <div id="pricing" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">PRICING</div>
+          <div class="h2" style="margin-top:8px">Choose your level</div>
+        </div>
+        <p class="p muted">Clean tiers built for volume. “Pro” is the sweet spot for consistency.</p>
+      </div>
+
+      <div class="cards-3" style="margin-top:14px">
+        <div class="tier">
+          <div class="name">
+            <div class="h3">Starter</div>
+            <div class="tag">Best to Begin</div>
+          </div>
+          <div class="price">$2,500 <span class="muted2" style="font-size:14px">/ month</span></div>
+          <ul class="list">
+            <li><span class="dot"></span> Bid discovery + weekly pipeline</li>
+            <li><span class="dot"></span> 2 submissions / month (packaging)</li>
+            <li><span class="dot"></span> Compliance checklist per submission</li>
+            <li><span class="dot"></span> 1 strategy call / week</li>
+          </ul>
+          <div class="hr"></div>
+          <a class="btn primary" href="#contact">Start Starter</a>
+        </div>
+
+        <div class="tier" style="border-color: rgba(200,169,106,.30)">
+          <div class="name">
+            <div class="h3">Pro</div>
+            <div class="tag">Most Popular</div>
+          </div>
+          <div class="price">$5,000 <span class="muted2" style="font-size:14px">/ month</span></div>
+          <ul class="list">
+            <li><span class="dot"></span> Everything in Starter</li>
+            <li><span class="dot"></span> 4 submissions / month (packaging)</li>
+            <li><span class="dot"></span> Subcontractor outreach support</li>
+            <li><span class="dot"></span> Priority turnaround targets</li>
+          </ul>
+          <div class="hr"></div>
+          <a class="btn primary" href="#contact">Start Pro</a>
+        </div>
+
+        <div class="tier">
+          <div class="name">
+            <div class="h3">Elite</div>
+            <div class="tag">Pinnacle</div>
+          </div>
+          <div class="price">$7,500 <span class="muted2" style="font-size:14px">/ month</span></div>
+          <ul class="list">
+            <li><span class="dot"></span> Everything in Pro</li>
+            <li><span class="dot"></span> “Fair use” packaging support for high volume</li>
+            <li><span class="dot"></span> Licensing roadmap + state expansion plan</li>
+            <li><span class="dot"></span> Direct line + rapid response</li>
+          </ul>
+          <div class="hr"></div>
+          <a class="btn primary" href="#contact">Start Elite</a>
+        </div>
+      </div>
+
+      <div class="section tight">
+        <div class="strip">
+          <div>
+            <div class="kicker">READY TO MOVE LIKE A BIG CONTRACTOR?</div>
+            <div class="h2" style="margin-top:8px">Request access and we’ll build your pipeline.</div>
+            <div class="muted" style="margin-top:6px">Phone: 435-559-7731 • Email: pmicllc25@gmail.com</div>
+          </div>
+          <div class="row" style="flex-wrap:wrap">
+            <a class="btn primary" href="#contact">Request Access</a>
+            <a class="btn ghost" href="#services">See Services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div id="contact" class="section">
+    <div class="container">
+      <div class="section-head">
+        <div>
+          <div class="kicker">CONTACT</div>
+          <div class="h2" style="margin-top:8px">Request Access</div>
+        </div>
+        <p class="p muted">This form is display-only right now. If you want it to send to your email, I’ll wire it next.</p>
+      </div>
+
+      <div class="cards-2" style="margin-top:14px">
+        <div class="card pad-lg">
+          <div class="h2">Quick Request</div>
+          <div class="hr"></div>
+
+          <form id="contact-form">
+            <div class="grid" style="gap:12px">
+              <input class="input" name="name" placeholder="Full Name" required/>
+              <input class="input" name="company" placeholder="Company (optional)"/>
+              <input class="input" name="phone" placeholder="Phone" required/>
+              <input class="input" name="email" placeholder="Email" required/>
+              <textarea class="input" name="message" style="min-height:140px" placeholder="What scope do you need help with? (Federal/state, trades, location, volume)" required></textarea>
+              <button class="btn primary" type="submit">Submit Request</button>
+              <div class="smallnote">Next upgrade: make this send to your inbox + store leads.</div>
+            </div>
+          </form>
+        </div>
+
+        <div class="card pad-lg">
+          <div class="h2">Direct</div>
+          <p class="p muted" style="margin-top:10px">
+            Phone: <b>435-559-7731</b><br/>
+            Email: <b>pmicllc25@gmail.com</b>
+          </p>
+          <div class="hr"></div>
+
+          <div class="feature" style="border-radius:16px">
+            <div class="top">
+              <div class="h3">What to send</div>
+              <div class="tag">Fast Start</div>
+            </div>
+            <div class="meta">
+              1) Your trade(s) and service area<br/>
+              2) Target states / agencies<br/>
+              3) Bid volume per month goal<br/>
+              4) Any licenses you already hold
+            </div>
+          </div>
+
+          <div class="hr"></div>
+          <div class="row" style="flex-wrap:wrap">
+            <a class="btn primary" href="#pricing">View Tiers</a>
+            <a class="btn ghost" href="#services">Services</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="container">
+      <div class="frow">
+        <div>
+          <div><b>BidForge</b> by PMIC LLC</div>
+          <div class="muted2">Luxury Bid Intelligence & Submission Platform</div>
+        </div>
+        <div>
+          <div>Phone: <b>435-559-7731</b></div>
+          <div>Email: <b>pmicllc25@gmail.com</b></div>
+        </div>
+        <div class="muted2">© <span data-year></span> PMIC LLC. All rights reserved.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Small luxury UX helpers
+    (function () {
+      // year
+      const y = document.querySelector("[data-year]");
+      if (y) y.textContent = new Date().getFullYear();
+
+      // chips -> search input
+      const input = document.querySelector("#site-search");
+      document.querySelectorAll("[data-chip]").forEach((chip) => {
+        chip.addEventListener("click", () => {
+          if (!input) return;
+          input.value = chip.getAttribute("data-chip") || "";
+          input.focus();
+        });
+      });
+
+      // search button
+      const btn = document.querySelector("#search-btn");
+      if (btn && input) {
+        btn.addEventListener("click", () => {
+          const q = input.value.trim();
+          alert(q ? `Searching BidForge: "${q}"` : "Type a scope or keyword first.");
+        });
+      }
+
+      // contact form (display-only)
+      const form = document.querySelector("#contact-form");
+      if (form) {
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          alert("Form submitted (demo). Tell me and I’ll wire this to send to your email + save leads.");
+          form.reset();
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
